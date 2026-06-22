@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #0d1017;
+    color: #e2e8f0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #151921;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #252b3b;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3b4255;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-medic-card/80 backdrop-blur-sm border border-medic-border rounded-xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-200 hover:border-medic-muted/30 hover:bg-medic-hover;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer;
+  }
+
+  .nav-item-active {
+    @apply nav-item bg-medic-agent/10 text-medic-agent border border-medic-agent/20;
+  }
+
+  .nav-item-inactive {
+    @apply nav-item text-medic-muted hover:text-medic-text hover:bg-medic-hover;
+  }
+
+  .kpi-card {
+    @apply glass-card p-5 flex flex-col gap-2;
+  }
+
+  .terminal-window {
+    @apply bg-[#0a0d14] border border-medic-border rounded-xl overflow-hidden font-mono;
+  }
+
+  .terminal-header {
+    @apply flex items-center gap-2 px-4 py-2.5 bg-medic-card border-b border-medic-border;
+  }
+
+  .terminal-dot {
+    @apply w-3 h-3 rounded-full;
+  }
+
+  .code-line {
+    @apply flex items-start gap-3 px-4 py-0.5 text-sm leading-6;
+  }
+
+  .code-line-number {
+    @apply text-medic-muted/40 select-none min-w-[2rem] text-right font-mono text-xs leading-6;
+  }
+
+  .step-indicator {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-500;
+  }
+
+  .step-active {
+    @apply step-indicator bg-medic-agent text-white shadow-glow-purple;
+  }
+
+  .step-complete {
+    @apply step-indicator bg-medic-heal text-white shadow-glow-green;
+  }
+
+  .step-pending {
+    @apply step-indicator bg-medic-card text-medic-muted border border-medic-border;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 bg-medic-agent hover:bg-medic-agent/80 text-white text-sm font-medium rounded-lg transition-all duration-200;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 text-medic-muted hover:text-medic-text hover:bg-medic-hover text-sm rounded-lg transition-all duration-200;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center gap-2 px-4 py-2 bg-medic-fail/10 hover:bg-medic-fail/20 text-medic-fail text-sm font-medium rounded-lg border border-medic-fail/20 transition-all duration-200;
+  }
+
+  .btn-success {
+    @apply inline-flex items-center gap-2 px-4 py-2.5 bg-medic-heal hover:bg-medic-heal/80 text-white text-sm font-semibold rounded-lg transition-all duration-200 shadow-glow-green;
+  }
+
+  .error-highlight {
+    @apply bg-medic-fail/10 border-l-2 border-medic-fail;
+    box-shadow: inset 0 0 30px rgba(239, 68, 68, 0.05);
+  }
+
+  .pulse-dot {
+    @apply w-2 h-2 rounded-full animate-pulse;
+  }
+}
+
+/* Custom animations */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  50% { border-color: transparent; }
+}
+
+.animate-typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 2s steps(40) forwards;
+}
+
+/* Glowing line effect */
+.glow-line-red {
+  position: relative;
+}
+
+.glow-line-red::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #ef4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+}
+
+/* Status animations */
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* Split view divider */
+.split-divider {
+  position: relative;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, #a855f7, transparent);
+}
+
+.split-divider::after {
+  content: '⟷';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1a1f2e;
+  padding: 4px;
+  font-size: 10px;
+  color: #a855f7;
+  border-radius: 4px;
+  border: 1px solid #a855f730;
+}
